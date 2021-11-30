@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:renode/src/core/models/note_model.dart';
 import 'package:renode/src/core/widgets/mic_button.dart';
+import 'package:renode/src/core/widgets/note_list.dart';
 import 'package:renode/src/home/application/home_cubit.dart';
 import 'package:renode/src/home/presentation/widget/main_menu_drawer.dart';
-import 'package:renode/src/home/presentation/widget/note_card_widget.dart';
+import 'package:renode/src/core/widgets/note_card_widget.dart';
 import 'package:renode/src/note/infrastructure/note_repository.dart';
 import 'package:renode/src/note/presentation/note_page.dart';
 
@@ -52,7 +53,15 @@ class _HomePageState extends State<HomePage> {
                 if (notes.isEmpty) {
                   return const Text("📓 Save your thoughts!");
                 }
-                return buildNotes(notes);
+                return NoteList(
+                  notes: notes,
+                  onTab: (Note note) async {
+                    await Navigator.pushNamed(context, NotePage.routName,
+                        arguments: note);
+                    BlocProvider.of<HomeCubit>(context).loadNotes();
+                    setState(() {});
+                  },
+                );
               },
             ),
           ),
@@ -63,34 +72,11 @@ class _HomePageState extends State<HomePage> {
               await Navigator.pushNamed(context, NotePage.routName);
               BlocProvider.of<HomeCubit>(context).loadNotes();
               setState(() {});
-            }, isListening: false,
+            },
+            isListening: false,
           ),
         );
       }),
     );
   }
-
-  Widget buildNotes(List<Note> notes) => StaggeredGridView.countBuilder(
-        padding: const EdgeInsets.all(8),
-        itemCount: notes.length,
-        staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
-        crossAxisCount: 4,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        itemBuilder: (context, index) {
-          final note = notes[index];
-
-          return NoteCardWidget(
-            note: note,
-            index: index,
-            onTap: () async {
-              await Navigator.pushNamed(context, NotePage.routName,
-                  arguments: note);
-              BlocProvider.of<HomeCubit>(context).loadNotes();
-              setState(() {});
-            },
-          );
-        },
-      );
 }
-

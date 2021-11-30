@@ -6,13 +6,13 @@ import 'package:renode/src/note/infrastructure/note_repository.dart';
 part 'home_state.dart';
 part 'home_cubit.freezed.dart';
 
-/// Holds and reads user settings, updates user settings, or listens to user settings changes.
+/// Loads all notes from the DB
 class HomeCubit extends Cubit<HomeState> {
   final NoteRepositoryImpl _noteRepository;
 
   HomeCubit(this._noteRepository) : super(const Initial());
 
-  /// Load notes from the SettingsRepository.
+  /// Load notes from noteRepository.
   Future<void> loadNotes() async {
     emit(const Loading());
     final notes = await _noteRepository.readAllNotes();

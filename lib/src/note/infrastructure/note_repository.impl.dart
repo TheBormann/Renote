@@ -61,18 +61,6 @@ CREATE TABLE $tableNotes (
   }
 
   @override
-  Future<int> delete(int id) async {
-    final db = await instance.database;
-    logger.i('New deleted in DB');
-
-    return await db.delete(
-      tableNotes,
-      where: '${NoteFields.id} = ?',
-      whereArgs: [id],
-    );
-  }
-
-  @override
   Future<Note> readNote(int id) async {
     final db = await instance.database;
 
@@ -91,13 +79,41 @@ CREATE TABLE $tableNotes (
   }
 
   @override
-  Future<List<Note>> readAllNotes() async {
+  Future<int> delete(int id) async {
+    final db = await instance.database;
+    logger.i('Deleted note in DB');
+
+    return await db.delete(
+      tableNotes,
+      where: '${NoteFields.id} = ?',
+      whereArgs: [id],
+    );
+  }
+
+  @override
+  Future<List<Note>> readAllNotes({bool isTrash=false}) async {
     final db = await instance.database;
 
     const orderBy = '${NoteFields.date} ASC';
-    final result = await db.query(tableNotes, orderBy: orderBy);
+    final result = await db.query(
+        tableNotes,
+        where: '${NoteFields.isDeleted} is ?',
+        whereArgs: [isTrash == false ? 0 : 1],
+        orderBy: orderBy);
     return result.map((json) => Note.fromMap(json)).toList();
   }
+
+  @override
+  Future<int> deleteTrashNotes() async {
+    final db = await instance.database;
+    logger.i('Deleted all trash notes');
+
+    return await db.delete(
+      tableNotes,
+      where: '${NoteFields.isDeleted} is 1',
+    );
+  }
+
 
   Future close() async {
     final db = await instance.database;
