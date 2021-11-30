@@ -24,9 +24,9 @@ class MainMenuDrawer extends StatelessWidget {
             ListTile(
               title: const Text("Trash"),
               onTap: () async {
-                Navigator.restorablePushNamed(context, TrashPage.routeName);
-                await BlocProvider.of<HomeCubit>(context).loadNotes();
-                // TODO: update page not working, when note is restored
+                Navigator.pushNamed(context, TrashPage.routeName).then(
+                    (_) async => await BlocProvider.of<HomeCubit>(context).loadNotes()
+                );
               },
             ),
             ListTile(

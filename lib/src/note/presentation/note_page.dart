@@ -49,7 +49,7 @@ class _NotePageState extends State<NotePage> {
               return const Center(child: Text('🤖 Something went wrong here!'));
             },
             loading: () {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             },
             loaded: (Note note) {
               return buildForm(context, note);

@@ -27,8 +27,8 @@
      inkscape:snap-intersection-paths="false"
      inkscape:snap-smooth-nodes="true"
      inkscape:zoom="1"
-     inkscape:cx="-600"
-     inkscape:cy="570"
+     inkscape:cx="375"
+     inkscape:cy="420"
      inkscape:window-width="3840"
      inkscape:window-height="2066"
      inkscape:window-x="-11"
@@ -61,5 +61,13 @@
        id="path5692"
        style="fill:none;stroke:#000000;stroke-width:0.52916667;stroke-miterlimit:4;stroke-dasharray:none"
        d="m -36.823047,144.57193 a 12.892961,12.892937 0 0 1 -12.89296,12.89294 12.892961,12.892937 0 0 1 -12.892961,-12.89294 12.892961,12.892937 0 0 1 12.892961,-12.89294 12.892961,12.892937 0 0 1 12.89296,12.89294 z" />
+    <path
+       id="path1504"
+       style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 276.6861,120.49484 a 64.464607,64.464607 0 0 1 -64.46461,64.46461 64.464607,64.464607 0 0 1 -64.4646,-64.46461 64.464607,64.464607 0 0 1 64.4646,-64.464603 64.464607,64.464607 0 0 1 64.46461,64.464603 z" />
+    <path
+       id="path1506"
+       style="fill:none;stroke:#000000;stroke-width:0.529167;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 265.04444,119.17193 a 64.464607,64.464607 0 0 1 -64.46461,64.46461 64.464607,64.464607 0 0 1 -64.4646,-64.46461 64.464607,64.464607 0 0 1 64.4646,-64.464609 64.464607,64.464607 0 0 1 64.46461,64.464609 z" />
   </g>
 </svg>

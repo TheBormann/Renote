@@ -36,7 +36,9 @@ class _HomePageState extends State<HomePage> {
             leading: Builder(builder: (context) {
               return IconButton(
                 icon: const Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer(),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
               );
             }),
             title: const Text("ReNote"),
@@ -47,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 return const Text('🙄 Something went wrong here!');
               },
               loading: () {
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               },
               loaded: (List<Note> notes) {
                 if (notes.isEmpty) {
