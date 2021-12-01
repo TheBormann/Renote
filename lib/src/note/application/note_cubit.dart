@@ -27,6 +27,7 @@ class NoteCubit extends Cubit<NoteState> {
     /// Track speech to text events
     errorSub = _speechToTextRepository.errors.stream.listen((errorResult) {
       logger.e("${errorResult.errorMsg} - ${errorResult.permanent}");
+      stopRecording();
     });
 
     statusesSub = _speechToTextRepository.statuses.stream.listen((status) {
@@ -40,10 +41,7 @@ class NoteCubit extends Cubit<NoteState> {
           loading: () => {},
           loaded: (Note note) => {},
           listening: (Note note, _, __) {
-            if (speechResult.finalResult){
-              logger.d('Result message: ${speechResult.toFinal().recognizedWords}');
-              updateNote(note, speechResult.toFinal().recognizedWords, true);
-            }
+              updateNote(note, speechResult.recognizedWords, speechResult.finalResult);
           }
         );
     });
@@ -73,6 +71,7 @@ class NoteCubit extends Cubit<NoteState> {
             emit(Loaded(newNote));
           } else {
             emit(Listening(note, recognizedWords, isFinal));
+            // TODO: is not updating while speaking
           }
         }
       },
@@ -128,7 +127,7 @@ class NoteCubit extends Cubit<NoteState> {
 
   /// Start speech to text
   Future<void> startRecording() async {
-    _speechToTextRepository.startListening();
+    await _speechToTextRepository.startListening();
     state.when(
       initial: () => stopRecording(),
       loading: () => stopRecording(),
@@ -140,13 +139,13 @@ class NoteCubit extends Cubit<NoteState> {
 
   /// Stop speech to text manually
   Future<void> stopRecording() async {
-    _speechToTextRepository.stopListening();
+    await _speechToTextRepository.stopListening();
     state.when(
       initial: () => null,
       loading: () => null,
       loaded: (Note note) => null,
       listening: (Note note, String recognizedWords, bool isFinal) =>
-          emit(Loaded(note)),
+          emit(Loaded(note.copyWith(text: note.text + recognizedWords))),
     );
 
   }

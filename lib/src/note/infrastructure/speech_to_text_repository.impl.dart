@@ -37,7 +37,7 @@ class SpeechToTextRepositoryImpl implements SpeechToTextRepository {
       if (null != systemLocale) {
         _localeId = systemLocale.localeId;
       } else {
-        _localeId = 'de_DE';
+        _localeId = 'en_EN';
       }
 
       _localeId = systemLocale!.localeId;

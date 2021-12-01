@@ -97,7 +97,7 @@ class _NotePageState extends State<NotePage> {
       ),
     );
   }
-  Widget buildNoteView(BuildContext context, Note note, ){
+  Widget buildNoteView(BuildContext context, Note note){
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16),

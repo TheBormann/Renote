@@ -32,18 +32,16 @@ class NoteCardWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text(
-                  note.title,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
+              Text(
+                note.title,
+                style: Theme.of(context).textTheme.headline5,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 14),
               Align(
                 alignment: Alignment.bottomRight,
                 child: Text(
                   DateFormat('MMM d, yyyy').format(note.date),
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.overline,
                   textAlign: TextAlign.right,
                 ),
               ),
